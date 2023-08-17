@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Todo Web App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/assets/tailwind.css" rel="stylesheet">
+  </head>
+  <body class="bg-neutral-900 text-white">
+    {% include "nav.html" %}
+    <form action="/" method="get" class="m-auto w-max mt-2">
+      <input type="number" class="outline-none" name="page_limit" min="1" value="{{query.page_limit | default(value=3)}}">
+      <select name="sort">
+        <option value="ASC" {% if query.sort == "ASC" %} selected {% endif %}>Ascending</option>
+        <option value="DESC" {% if query.sort == "DESC" %} selected {% endif %}>Descending</option>
+      </select>
+      <button type="submit" class="hover:text-neutral-500">Apply</button>
+    </form>
+    <main>
+      {% include "todos.html" %}
+    </main>
+  </body>
+  <script src="https://unpkg.com/axios@1.4.0/dist/axios.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+  axios.defaults.baseURL = "http://{{config.addr}}:{{config.port}}";
+  </script>
+</html>

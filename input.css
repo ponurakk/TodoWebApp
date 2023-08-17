@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  input {
+    @apply border-b border-b-white focus:border-b-neutral-600
+  }
+  textarea {
+    @apply border border-white focus:border-neutral-600 rounded p-1
+  }
+  input, textarea, select {
+    @apply bg-inherit focus:transition-colors focus:duration-500 transition-colors duration-300
+  }
+}

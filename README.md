@@ -3,13 +3,14 @@ Simple todo webapp in most languages i know
 
 ### Languages
 - [ ] 1. Rust (actix, tera, sea-orm)
-- [ ] 2. Typescript (express, ejs, typeorm)
-- [ ] 3. Python (flask, ponyorm)
-- [ ] 4. Kotlin (ktor, ktorm)
-- [ ] 5. C++ (crow, tinyorm)
+- [ ] 2. C++ (crow, tinyorm)
+- [ ] 3. Rust (axum, tera, sea-orm)
+- [ ] 4. Typescript (express, ejs, typeorm)
+- [ ] 5. Python (flask, ponyorm)
+- [ ] 6. Kotlin (ktor, ktorm)
 
 ### Other tools
-- Tailwind
+- TailwindCSS
 - SQLite
 
 ### Endpoints
@@ -17,7 +18,9 @@ Simple todo webapp in most languages i know
 - `GET` `/`  -> Main page
 
 #### BackEnd
-- `GET` `/api/todo?sort&page-limit` -> Get todo items
+- `GET` `/api/todos?sort&page-limit` -> Get todo items
+- `GET` `/api/todo/:id` -> Get one todo item
 - `POST` `/api/todo` -> Add new todo item
 - `DELETE` `/api/todo`  -> Remove todo item
 - `PUT` `/api/todo` -> Update todo item
+
