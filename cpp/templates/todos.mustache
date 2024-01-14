@@ -1,0 +1,88 @@
+<div class="container m-auto mt-4">
+  <div class="flex flex-col items-center gap-3">
+    {{#todos}}
+    <div id="div-{{id}}" class="bg-neutral-800 rounded-xl p-4 w-3/5 flex flex-row">
+      <div class="basis-3/4 flex flex-col"> <!-- left --> 
+        <p class="flex w-11/12">
+          <span class="font-bold mr-1">{{id}}.</span>
+          <input type="text" class="outline-none flex-grow title" name="title" value="{{title}}">
+        </p>
+        <textarea class="outline-none resize-none w-11/12 flex-grow mt-2 text" name="text">{{text}}</textarea>
+      </div>
+      <div> <!-- right -->
+        <p>Finished: <input class="finished" type="checkbox" name="id_done" {{#is_done}} checked {{/is_done}}></p>
+        <p>Created: <br><span class="ml-3 font-bold">{{created_at}}</span></p>
+        <p>Updated: <br><span class="ml-3 font-bold">{{updated_at}}</span></p>
+        <div class="float-right">
+          <button class="hover:text-neutral-500 update" id="{{id}}">Update</button>
+          <button class="hover:text-neutral-500 remove" id="{{id}}">Remove</button>
+        </div>
+      </div>
+    </div>
+    <br><br>
+    {{/todos}}
+    <form class="bg-neutral-800 rounded-xl p-4 w-3/5 flex flex-row" action="/api/todo" method="post">
+      <div class="basis-3/4 flex flex-col"> <!-- left --> 
+        <p class="flex w-11/12">
+          <span class="font-bold mr-1">#.</span>
+          <input type="text" class="outline-none flex-grow title" name="title" value="">
+        </p>
+        <textarea class="outline-none resize-none w-11/12 flex-grow mt-2 text" name="text"></textarea>
+      </div>
+      <div class="!float-right"> <!-- right -->
+        <p>Finished: <input class="finished" type="checkbox" disabled></p>
+        <p>Created: <br><span class="ml-3 font-bold">{{created_at}}</span></p>
+        <p>Updated: <br><span class="ml-3 font-bold">{{updated_at}}</span></p>
+        <div class="float-right">
+          <button class="hover:text-neutral-500" type="submit" data-rel="back">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+const updateBtn = document.querySelectorAll(`button.update`);
+
+updateBtn.forEach((item) => {
+  item.addEventListener('click', () => {
+    const id = event.target.id;
+    const title = document.querySelector(`#div-${id} input.title`)
+    const text = document.querySelector(`#div-${id} textarea.text`)
+    const finished = document.querySelector(`#div-${id} input.finished`)
+
+    const options = {
+      method: 'PATCH',
+      url: `/api/todo/${id}`,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        "title": title.value,
+        "text": text.value,
+        "is_done": finished.checked,
+      }
+    };
+
+    axios.request(options).catch((error) => console.error(error));
+  })
+})
+
+const removeBtn = document.querySelectorAll(`button.remove`);
+
+removeBtn.forEach((item) => {
+  item.addEventListener('click', () => {
+    const id = event.target.id;
+    const div = document.querySelector(`#div-${id}`)
+    const options = {
+      method: 'DELETE',
+      url: `/api/todo/${id}`,
+    };
+
+    axios.request(options)
+      .then(() => {
+        div.remove()
+      })
+      .catch((error) => console.error(error));
+  })
+})
+</script>
