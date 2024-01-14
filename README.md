@@ -3,7 +3,7 @@ Simple todo webapp in most languages i know
 
 ### Languages
 - [x] 1. Rust (actix, tera, sea-orm)
-- [ ] 2. C++ (crow, tinyorm)
+- [ ] 2. C++ (crow, sqlite3)
 - [ ] 3. Rust (axum, tera, sea-orm)
 - [ ] 4. Typescript (express, ejs, typeorm)
 - [ ] 5. Python (flask, ponyorm)
